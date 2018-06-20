@@ -2,7 +2,7 @@
 
 #include "MsIndex.h"
 
-#define     LROLE_BASE            0xA9DE58        //人物基址A
+#define     LROLE_BASE            0xA9DE58        //人物基址
 #define     LROLE_EXP             0x13FF8C0        //人物经验值
 #define     LROLE_XY              0x14101E8        //人物坐标
 #define     LBAG_BASE             0x13FF5E8        //背包基址
