@@ -12,10 +12,9 @@ class CBNumberMainDlg : public CDialogEx
 public:
 	CBNumberMainDlg(CWnd* pParent = NULL);	// 标准构造函数
 
-// 对话框数据
-#ifdef AFX_DESIGN_TIME
+
 	enum { IDD = IDD_BNUMBERMAIN_DIALOG };
-#endif
+
 
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV 支持
@@ -31,4 +30,6 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnBnClickedOk();
 };

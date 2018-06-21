@@ -51,4 +51,8 @@
 #endif
 #endif
 
+#include <vector>
+#include <string>
+#include <thread>
 
+CString tget_curpath(BOOL slash);
