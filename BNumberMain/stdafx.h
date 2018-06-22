@@ -51,6 +51,9 @@
 #endif
 #endif
 
+//мпелоШо╒
+#define   WM_USER_NOTIFYICON WM_USER+111
+
 #include <vector>
 #include <string>
 #include <thread>

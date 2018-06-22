@@ -3,7 +3,9 @@
 //
 
 #pragma once
-
+#include "afxcmn.h"
+#include "TabDlgA.h"
+#include "TabDlgB.h"
 
 // CBNumberMainDlg 对话框
 class CBNumberMainDlg : public CDialogEx
@@ -31,4 +33,17 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
+	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
+private:
+	NOTIFYICONDATA m_notify;  //系统托盘类
+	afx_msg LRESULT OnNotifyMsg(WPARAM wparam, LPARAM lparam);
+	CTabCtrl m_tab;
+	int m_CurSelTab;
+	CTabDlgA m_pageA;
+	CTabDlgB m_pageB;
+	CDialog* pDialog[2];  //用来保存对话框对象指针  
+public:
+	afx_msg void OnClose();
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	afx_msg void OnTcnSelchangeTab1(NMHDR *pNMHDR, LRESULT *pResult);
 };

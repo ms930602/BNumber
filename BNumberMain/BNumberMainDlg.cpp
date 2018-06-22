@@ -6,11 +6,15 @@
 #include "BNumberMain.h"
 #include "BNumberMainDlg.h"
 #include "afxdialogex.h"
+#include "MSDll.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 
+using namespace std;
+
+HWND g_MyHwnd = nullptr;
 
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
@@ -58,12 +62,17 @@ CBNumberMainDlg::CBNumberMainDlg(CWnd* pParent /*=NULL*/)
 void CBNumberMainDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_TAB1, m_tab);
 }
 
 BEGIN_MESSAGE_MAP(CBNumberMainDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_MESSAGE(WM_USER_NOTIFYICON, OnNotifyMsg)
+	ON_WM_CLOSE()
+	ON_WM_TIMER()
+	ON_NOTIFY(TCN_SELCHANGE, IDC_TAB1, &CBNumberMainDlg::OnTcnSelchangeTab1)
 END_MESSAGE_MAP()
 
 
@@ -99,7 +108,45 @@ BOOL CBNumberMainDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
+	m_tab.InsertItem(0, _T("控制台"));
+	m_tab.InsertItem(1, _T("账号信息"));
+	m_pageA.Create(IDD_DIALOG1, &m_tab);
+	m_pageB.Create(IDD_DIALOG2, &m_tab);
+	//设定在Tab内显示的范围  
+	CRect rc;
+	m_tab.GetClientRect(rc);
+	rc.top += 20;
+	rc.bottom -= 0;
+	rc.left += 0;
+	rc.right -= 0;
+	m_pageA.MoveWindow(&rc);
+	m_pageB.MoveWindow(&rc);
+	//把对话框对象指针保存起来  
+	pDialog[0] = &m_pageA;
+	pDialog[1] = &m_pageB;
+	//显示初始页面
+	pDialog[0]->ShowWindow(SW_SHOW);
+	pDialog[1]->ShowWindow(SW_HIDE);
+	//保存当前选择  
+	m_CurSelTab = 0;
+	
+	/***** Start *****
+	托盘图标
+	*/
+	m_notify.cbSize = sizeof(NOTIFYICONDATA);//结构体大小
+	m_notify.hWnd = m_hWnd;//对应窗口
+	m_notify.uID = IDR_MAINFRAME;//托盘id
+	m_notify.hIcon = m_hIcon;//图标
 
+	_tcscpy(m_notify.szTip, _T("B数控制台"));//提示字符
+
+	m_notify.uCallbackMessage = WM_USER_NOTIFYICON;//处理消息
+	m_notify.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP; //有效标志
+	Shell_NotifyIcon(NIM_ADD, &m_notify);//添加托盘
+	/***** End *****
+	托盘图标
+	*/
+	g_MyHwnd = m_hWnd;
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -152,3 +199,102 @@ HCURSOR CBNumberMainDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+LRESULT CBNumberMainDlg::OnNotifyMsg(WPARAM wparam, LPARAM lparam)
+//wParam接收的是图标的ID，而lParam接收的是鼠标的行为     
+{
+	if (wparam != IDR_MAINFRAME)
+		return    1;
+	switch (lparam)
+	{
+	case  WM_RBUTTONUP://右键起来时弹出快捷菜单，这里只有一个“关闭”     
+	{
+		LPPOINT    lpoint = new    tagPOINT;
+		::GetCursorPos(lpoint);//得到鼠标位置     
+		CMenu    menu;
+		menu.CreatePopupMenu();//声明一个弹出式菜单     
+							   //增加菜单项“关闭”，点击则发送消息WM_DESTROY给主窗口（已     
+							   //隐藏），将程序结束。    
+		menu.AppendMenuW(MF_STRING, WM_DESTROY, _T("关闭"));
+		//确定弹出式菜单的位置     
+		menu.TrackPopupMenu(TPM_LEFTALIGN, lpoint->x, lpoint->y, this);
+		//资源回收
+		HMENU    hmenu = menu.Detach();
+		menu.DestroyMenu();
+		delete    lpoint;
+	}
+	break;
+	case    WM_LBUTTONDBLCLK://双击左键的处理     
+	{
+		if (IsWindowVisible())
+			ShowWindow(SW_HIDE);
+		else
+			ShowWindow(SW_SHOW);//简单的显示主窗口完事儿 
+	}
+	break;
+	}
+	return 0;
+}
+
+
+
+LRESULT CBNumberMainDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
+{
+	// TODO: Add your specialized code here and/or call the base class  
+	switch (message) //判断消息类型  
+	{
+	case WM_SYSCOMMAND:
+		//如果是系统消息   
+		if (wParam == SC_MINIMIZE)
+		{
+			//接收到最小化消息时主窗口隐藏   
+			AfxGetApp()->m_pMainWnd->ShowWindow(SW_HIDE);
+			return 0;
+		}
+		if (wParam == SC_CLOSE)
+		{
+			::Shell_NotifyIcon(NIM_DELETE, &m_notify); //关闭时删除系统托盘图标  
+		}
+		break;
+	}
+	return CDialog::WindowProc(message, wParam, lParam);
+}
+
+
+void CBNumberMainDlg::OnClose()
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+
+	if (IDNO == ::MessageBox(this->m_hWnd, _T("退出程序将无法执行脚本，退出吗?"), _T("警告"),
+
+		MB_ICONEXCLAMATION | MB_YESNO))
+	{
+		return;
+	}
+	else {
+
+		CDialog::OnClose();
+	}
+}
+
+
+void CBNumberMainDlg::OnTimer(UINT_PTR nIDEvent)
+{
+	CDialogEx::OnTimer(nIDEvent);
+}
+
+
+void CBNumberMainDlg::OnTcnSelchangeTab1(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	// TODO: 在此添加控件通知处理程序代码  
+
+	//得到新的页面索引  
+	int index = m_CurSelTab;
+	m_CurSelTab = m_tab.GetCurSel();
+	if (m_CurSelTab != index) {
+		//把当前的页面隐藏起来  
+		pDialog[index]->ShowWindow(SW_HIDE);
+		//把新的页面显示出来  
+		pDialog[m_CurSelTab]->ShowWindow(SW_SHOW);
+	}
+	*pResult = 0;
+}

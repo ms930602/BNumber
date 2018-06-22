@@ -36,6 +36,12 @@
     <ClInclude Include="MSDll.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="TabDlgA.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TabDlgB.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BNumberMain.cpp">
@@ -48,6 +54,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="MSDll.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TabDlgA.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TabDlgB.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
