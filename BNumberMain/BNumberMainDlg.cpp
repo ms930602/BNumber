@@ -214,7 +214,7 @@ LRESULT CBNumberMainDlg::OnNotifyMsg(WPARAM wparam, LPARAM lparam)
 		menu.CreatePopupMenu();//声明一个弹出式菜单     
 							   //增加菜单项“关闭”，点击则发送消息WM_DESTROY给主窗口（已     
 							   //隐藏），将程序结束。    
-		menu.AppendMenuW(MF_STRING, WM_DESTROY, _T("关闭"));
+		menu.AppendMenu(MF_STRING, WM_DESTROY, _T("关闭"));
 		//确定弹出式菜单的位置     
 		menu.TrackPopupMenu(TPM_LEFTALIGN, lpoint->x, lpoint->y, this);
 		//资源回收

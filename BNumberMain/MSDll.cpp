@@ -91,7 +91,7 @@ bool EnablePrivilege(WCHAR PrivilegeName[], BOOL IsEnable)
 		return false;
 	}
 	//查看权限 NULL->本进程
-	if (!LookupPrivilegeValue(NULL, PrivilegeName, &luid))
+	if (!LookupPrivilegeValueW(NULL, PrivilegeName, &luid))
 	{
 		return false;
 	}

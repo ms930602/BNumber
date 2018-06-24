@@ -26,4 +26,5 @@ private:
 	CListCtrl m_a_list;
 public:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	afx_msg void OnPaint();
 };

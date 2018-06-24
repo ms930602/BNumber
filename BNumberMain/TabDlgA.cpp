@@ -30,6 +30,7 @@ void CTabDlgA::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CTabDlgA, CDialogEx)
 	ON_WM_TIMER()
+	ON_WM_PAINT()
 END_MESSAGE_MAP()
 
 
@@ -95,4 +96,15 @@ void CTabDlgA::OnTimer(UINT_PTR nIDEvent)
 		break;
 	}
 	CDialogEx::OnTimer(nIDEvent);
+}
+
+
+void CTabDlgA::OnPaint()
+{
+	CPaintDC dc(this); // device context for painting
+					   // TODO: 在此处添加消息处理程序代码
+					   // 不为绘图消息调用 CDialogEx::OnPaint()
+	CRect   rect;
+	GetClientRect(rect);
+	dc.FillSolidRect(rect, RGB(255, 255, 255));
 }
