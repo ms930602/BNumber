@@ -52,15 +52,35 @@
 #endif
 
 //托盘消息
-#define   WM_USER_NOTIFYICON WM_USER+111
+#define  WM_USER_NOTIFYICON WM_USER+111
+#define  WM_USER_人物属性信息  WM_USER + 112 
+#define  WM_USER_状况  WM_USER + 113 
+#define  WM_USER_SOCKET_添加PID  WM_USER + 116 
+#define  WM_USER_按钮状态  WM_USER + 117 
+extern HWND g_MyHwnd;
 
+#include <WinSock.h>  //一定要包含这个，或者winsock2.h
 #include <vector>
 #include <string>
 #include <thread>
+#include "HPClient.h"
+#include "ServerCtrl.h"
+
+#pragma comment(lib,"wsock32.lib")
+
+#ifdef _DEBUG
+#pragma comment(lib,"..\\HPSocket\\bin\\HPSocket_D.lib") 
+#else
+#pragma comment(lib,"..\\HPSocket\\bin\\HPSocket.lib") 
+#endif // !_DEBUG
 using namespace std;
 
+extern  CHPClient* pHPClient;
+//套接字服务端
+extern  CServerCtrl* pMyServer;
 CString tget_curpath(BOOL slash);
 vector<CString>  cstring_substr(IN  CString _Source, IN  CString _Sub, BOOL bAll = 0);
+vector<CString> tenum_inifile(IN  CString  _FilePath, IN  CString  _AppName);
 
 //将数字字符串转换成进制数 最后参数为几进制 1<x<36 只填第一个参数 123,asd 只会返回 123
 inline unsigned long cstoul(const CStringA& _Str, size_t* _Idx = 0, int _Base = 10) {
@@ -94,3 +114,27 @@ inline unsigned long cstoul(const CStringW& _Str, size_t *_Idx = 0,
 		*_Idx = (size_t)(_Eptr - _Ptr);
 	return (_Ans);
 }
+
+#ifdef UNICODE
+#define to_cstring  to_cstrw
+#else
+#define to_cstring  to_cstra
+#endif // !UNICODE
+class CriticalSectionLock
+{
+	/************************************************************************/
+	/*临界区线程同步类                                                */
+	/************************************************************************/
+public:
+	CriticalSectionLock(CCriticalSection* cs)
+	{
+		cs->Lock();//进入临界区
+		m_cs = cs;
+	}
+	~CriticalSectionLock()
+	{
+		m_cs->Unlock();//交出临界区
+	}
+private:
+	CCriticalSection* m_cs;
+};

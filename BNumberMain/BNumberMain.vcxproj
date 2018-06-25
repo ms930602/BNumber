@@ -91,11 +91,15 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -194,6 +198,7 @@
     <ClInclude Include="HPClient.h" />
     <ClInclude Include="MSDll.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="ServerCtrl.h" />
     <ClInclude Include="SocketStruct.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TabDlgA.h" />
@@ -205,6 +210,7 @@
     <ClCompile Include="BNumberMainDlg.cpp" />
     <ClCompile Include="HPClient.cpp" />
     <ClCompile Include="MSDll.cpp" />
+    <ClCompile Include="ServerCtrl.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

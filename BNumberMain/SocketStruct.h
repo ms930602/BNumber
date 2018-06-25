@@ -1,6 +1,6 @@
 #pragma once
 #include "stdafx.h"
-#include "../HPlib/SocketInterface.h"
+#include "../HPSocket/Src/SocketInterface.h"
 #ifndef _STRURCT_SOCKET
 #define _STRURCT_SOCKET
 
@@ -62,14 +62,14 @@ struct SocketBind
 
 struct TPkgHeader
 {
-	DWORD dwpacketID;
-	int	  body_len;
+	DWORD seq;
+	int body_len;
 };
 
 struct TPkgInfo
 {
-	bool   is_header;				//当前数据是否是包头
-	int    length;					//当前需要数据长度
+	bool is_header;
+	int length;
 	DWORD  dwpacketID;				//数据ID
 
 	TPkgInfo(bool header = true, int nID = 0, int len = sizeof(TPkgHeader)) : is_header(header), dwpacketID(nID), length(len) {}

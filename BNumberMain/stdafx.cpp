@@ -5,6 +5,8 @@
 
 #include "stdafx.h"
 
+CHPClient* pHPClient = nullptr;
+CServerCtrl* pMyServer = nullptr;
 
 //获取当前程序路径 真带后面的// 
 CString tget_curpath(BOOL slash)
@@ -76,4 +78,9 @@ vector<CString>  cstring_substr(IN  CString _Source, IN  CString _Sub, BOOL bAll
 	}
 
 	return _AllSubstr;
+}
+
+vector<CString> tenum_inifile(IN CString _FilePath, IN CString _AppName)
+{
+	return vector<CString>();
 }
