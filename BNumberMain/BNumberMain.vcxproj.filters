@@ -51,6 +51,9 @@
     <ClInclude Include="ServerCtrl.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="GameDataFun.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BNumberMain.cpp">
@@ -75,6 +78,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="ServerCtrl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GameDataFun.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

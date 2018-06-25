@@ -6,6 +6,7 @@
 #include "TabDlgA.h"
 #include "afxdialogex.h"
 #include "MSDll.h"
+#include "GameDataFun.h"
 
 // CTabDlgA 对话框
 
@@ -60,7 +61,18 @@ BOOL CTabDlgA::OnInitDialog()
 	m_a_list.InsertColumn(11, _T("交子"), NULL, 60, -1);
 	m_a_list.InsertColumn(12, _T("金钱"), NULL, 60, -1);
 	m_a_list.InsertColumn(13, _T("元宝"), NULL, 60, -1);
-	
+
+	CString	strPath = MyGetFilePathName(_T("游戏路径.txt"));
+	if (strPath != "")
+	{
+		CString strPathName;
+		GetPrivateProfileString(_T("路径"), _T("游戏路径"), _T(""), strPathName.GetBuffer(MAX_PATH), MAX_PATH, strPath);
+		strPathName.ReleaseBuffer();
+
+		GetPrivateProfileString(_T("帐号"), _T("账号文件"), _T(""), strPathName.GetBuffer(MAX_PATH), MAX_PATH, strPath);
+		strPathName.ReleaseBuffer();
+		
+	}
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 异常: OCX 属性页应返回 FALSE
 }

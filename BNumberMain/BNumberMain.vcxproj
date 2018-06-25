@@ -37,7 +37,7 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
     <UseOfMfc>Dynamic</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -143,7 +143,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -195,6 +195,7 @@
   <ItemGroup>
     <ClInclude Include="BNumberMain.h" />
     <ClInclude Include="BNumberMainDlg.h" />
+    <ClInclude Include="GameDataFun.h" />
     <ClInclude Include="HPClient.h" />
     <ClInclude Include="MSDll.h" />
     <ClInclude Include="Resource.h" />
@@ -208,6 +209,7 @@
   <ItemGroup>
     <ClCompile Include="BNumberMain.cpp" />
     <ClCompile Include="BNumberMainDlg.cpp" />
+    <ClCompile Include="GameDataFun.cpp" />
     <ClCompile Include="HPClient.cpp" />
     <ClCompile Include="MSDll.cpp" />
     <ClCompile Include="ServerCtrl.cpp" />
