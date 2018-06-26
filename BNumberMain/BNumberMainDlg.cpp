@@ -250,10 +250,6 @@ LRESULT CBNumberMainDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 			AfxGetApp()->m_pMainWnd->ShowWindow(SW_HIDE);
 			return 0;
 		}
-		if (wParam == SC_CLOSE)
-		{
-			::Shell_NotifyIcon(NIM_DELETE, &m_notify); //关闭时删除系统托盘图标  
-		}
 		break;
 	}
 	return CDialog::WindowProc(message, wParam, lParam);
@@ -271,7 +267,7 @@ void CBNumberMainDlg::OnClose()
 		return;
 	}
 	else {
-
+		::Shell_NotifyIcon(NIM_DELETE, &m_notify); //关闭时删除系统托盘图标  
 		CDialog::OnClose();
 	}
 }

@@ -195,6 +195,7 @@
   <ItemGroup>
     <ClInclude Include="BNumberMain.h" />
     <ClInclude Include="BNumberMainDlg.h" />
+    <ClInclude Include="DlgLoginAdd.h" />
     <ClInclude Include="GameDataFun.h" />
     <ClInclude Include="HPClient.h" />
     <ClInclude Include="MSDll.h" />
@@ -209,6 +210,7 @@
   <ItemGroup>
     <ClCompile Include="BNumberMain.cpp" />
     <ClCompile Include="BNumberMainDlg.cpp" />
+    <ClCompile Include="DlgLoginAdd.cpp" />
     <ClCompile Include="GameDataFun.cpp" />
     <ClCompile Include="HPClient.cpp" />
     <ClCompile Include="MSDll.cpp" />

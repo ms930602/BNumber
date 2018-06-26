@@ -80,7 +80,34 @@ vector<CString>  cstring_substr(IN  CString _Source, IN  CString _Sub, BOOL bAll
 	return _AllSubstr;
 }
 
+/************************************************************************
+枚举指定标签下所有的键值的文本内容
+************************************************************************/
 vector<CString> tenum_inifile(IN CString _FilePath, IN CString _AppName)
 {
-	return vector<CString>();
+	vector<CString> AllServer;
+	CString CStrAppName(_AppName);
+	CString CStrFilePath(_FilePath);
+	TCHAR strKeyNameTemp[1024] = { 0 };//对应每个AppName的所有KeyName的返回值
+	DWORD dwKeyNameSize = GetPrivateProfileString(CStrAppName, NULL, NULL, strKeyNameTemp, 1024, CStrFilePath);
+	TCHAR *pKeyName = new TCHAR[dwKeyNameSize];
+	TCHAR strReturnTemp[1024] = { 0 };//返回值
+	int nKeyNameLen = 0;    //每个KeyName的长度
+	for (UINT j = 0; j < dwKeyNameSize; j++)
+	{
+		pKeyName[nKeyNameLen++] = strKeyNameTemp[j];
+		if (strKeyNameTemp[j] == _T('\0'))
+		{
+			if (GetPrivateProfileString(CStrAppName, pKeyName, NULL, strReturnTemp, 1024, CStrFilePath))
+			{
+				memset(pKeyName, 0, dwKeyNameSize);
+			}
+			nKeyNameLen = 0;
+			AllServer.push_back(strReturnTemp);
+			////dbgPrint(_T("%s::\t\t %s\n"), CString(__FUNCTION__), strReturnTemp);
+		}
+	}
+	delete[]pKeyName;
+
+	return AllServer;
 }

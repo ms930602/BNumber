@@ -65,6 +65,7 @@ extern HWND g_MyHwnd;
 #include <thread>
 #include "HPClient.h"
 #include "ServerCtrl.h"
+#include "GameDataFun.h"
 
 #pragma comment(lib,"wsock32.lib")
 
@@ -115,11 +116,14 @@ inline unsigned long cstoul(const CStringW& _Str, size_t *_Idx = 0,
 	return (_Ans);
 }
 
-#ifdef UNICODE
-#define to_cstring  to_cstrw
-#else
-#define to_cstring  to_cstra
-#endif // !UNICODE
+inline CStringA to_cstra(unsigned int _Val)
+{	// convert unsigned int to string
+	CStringA f;
+	f.Format("%d", _Val);
+	return f;
+}
+
+
 class CriticalSectionLock
 {
 	/************************************************************************/

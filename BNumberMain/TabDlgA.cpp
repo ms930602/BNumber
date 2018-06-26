@@ -6,7 +6,6 @@
 #include "TabDlgA.h"
 #include "afxdialogex.h"
 #include "MSDll.h"
-#include "GameDataFun.h"
 
 // CTabDlgA 对话框
 
@@ -62,16 +61,17 @@ BOOL CTabDlgA::OnInitDialog()
 	m_a_list.InsertColumn(12, _T("金钱"), NULL, 60, -1);
 	m_a_list.InsertColumn(13, _T("元宝"), NULL, 60, -1);
 
-	CString	strPath = MyGetFilePathName(_T("游戏路径.txt"));
+	CString	strPath = MyGetFilePathName(_T("游戏路径.ini"));
+	TRACE(strPath);
 	if (strPath != "")
 	{
 		CString strPathName;
-		GetPrivateProfileString(_T("路径"), _T("游戏路径"), _T(""), strPathName.GetBuffer(MAX_PATH), MAX_PATH, strPath);
-		strPathName.ReleaseBuffer();
+		//GetPrivateProfileString(_T("路径"), _T("游戏路径"), _T(""), strPathName.GetBuffer(MAX_PATH), MAX_PATH, strPath);
+		//strPathName.ReleaseBuffer();
 
 		GetPrivateProfileString(_T("帐号"), _T("账号文件"), _T(""), strPathName.GetBuffer(MAX_PATH), MAX_PATH, strPath);
 		strPathName.ReleaseBuffer();
-		
+		TRACE(strPathName);
 	}
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 异常: OCX 属性页应返回 FALSE
@@ -116,7 +116,7 @@ void CTabDlgA::OnPaint()
 	CPaintDC dc(this); // device context for painting
 					   // TODO: 在此处添加消息处理程序代码
 					   // 不为绘图消息调用 CDialogEx::OnPaint()
-	CRect   rect;
-	GetClientRect(rect);
-	dc.FillSolidRect(rect, RGB(255, 255, 255));
+	//CRect   rect;
+	//GetClientRect(rect);
+	//dc.FillSolidRect(rect, RGB(255, 255, 255));
 }
