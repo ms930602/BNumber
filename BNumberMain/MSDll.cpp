@@ -63,17 +63,25 @@ vector<DWORD> GetNameProcessId(CString ProcessName)
 	vector<DWORD> vProcessID;
 	//快照缓冲区 读取全部进程到快照缓冲区中
 	HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-	//存放快照信息结构体 单个进程
-	PROCESSENTRY32 pe;
-	pe.dwSize = sizeof(pe);
-
-	BOOL bOK = Process32First(hSnapshot, &pe);
-
-	for (; bOK; Process32Next(hSnapshot, &pe))
+	if (INVALID_HANDLE_VALUE == hSnapshot)
 	{
-		if (ProcessName == pe.szExeFile) {
+		return vProcessID;
+	}
+	PROCESSENTRY32 pe = { sizeof(pe) };
+	BOOL fOk;
+
+	// 枚举列表中的第一个进程
+	BOOL bProcess = Process32First(hSnapshot, &pe);
+	while (bProcess)
+	{
+		// 比较进程名，找到要找的进程名
+		if (ProcessName.CompareNoCase(pe.szExeFile) == 0)
+		{
+			TRACE(pe.szExeFile);
 			vProcessID.push_back(pe.th32ProcessID);
 		}
+		// 继续查找
+		bProcess = Process32Next(hSnapshot, &pe);
 	}
 
 	::CloseHandle(hSnapshot);

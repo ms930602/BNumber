@@ -61,18 +61,7 @@ BOOL CTabDlgA::OnInitDialog()
 	m_a_list.InsertColumn(12, _T("金钱"), NULL, 60, -1);
 	m_a_list.InsertColumn(13, _T("元宝"), NULL, 60, -1);
 
-	CString	strPath = MyGetFilePathName(_T("游戏路径.ini"));
-	TRACE(strPath);
-	if (strPath != "")
-	{
-		CString strPathName;
-		//GetPrivateProfileString(_T("路径"), _T("游戏路径"), _T(""), strPathName.GetBuffer(MAX_PATH), MAX_PATH, strPath);
-		//strPathName.ReleaseBuffer();
-
-		GetPrivateProfileString(_T("帐号"), _T("账号文件"), _T(""), strPathName.GetBuffer(MAX_PATH), MAX_PATH, strPath);
-		strPathName.ReleaseBuffer();
-		TRACE(strPathName);
-	}
+	::SetTimer(m_hWnd, 1, 5000, NULL);
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 异常: OCX 属性页应返回 FALSE
 }
@@ -80,24 +69,30 @@ BOOL CTabDlgA::OnInitDialog()
 
 void CTabDlgA::OnTimer(UINT_PTR nIDEvent)
 {
+	TRACE("检测进程信息 %d", nIDEvent);
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
 	switch (nIDEvent)
 	{
 	case	1: {//该定时器是控制如果窗口不存在了就删除
-		auto vGamePID = GetNameProcessId(_T("Game.exe"));
-		INT i = 0;
-		while (i < m_a_list.GetItemCount())
+		auto vGamePID = GetNameProcessId(_T("Channel_18农残.exe"));
+		if (vGamePID.size() > 0)
 		{
-			CString strPID = m_a_list.GetItemText(i, 0);
-			DWORD dwPID = cstoul(strPID);
+			INT i = 0;
+			while (i < m_a_list.GetItemCount())
+			{
+				CString strPID = m_a_list.GetItemText(i, 0);
+				DWORD dwPID = cstoul(strPID);
 
-			vector<DWORD>::iterator result = find(vGamePID.begin(), vGamePID.end(), dwPID);
-			if (result == vGamePID.end()) {//找到了不删 没找到就删除
-				m_a_list.DeleteItem(i);
-				--i;
+				vector<DWORD>::iterator result = find(vGamePID.begin(), vGamePID.end(), dwPID);
+				if (result == vGamePID.end()) {//找到了不删 没找到就删除
+					m_a_list.DeleteItem(i);
+					--i;
+				}
+				++i;
 			}
-			++i;
 		}
+		
+		
 	}
 			   break;
 	case	2: {
