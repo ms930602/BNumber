@@ -58,7 +58,7 @@ BOOL InJectDll(DWORD processID, CString DllName)
 	return 0;
 }
 
-vector<DWORD> GetNameProcessId(CString ProcessName)
+vector<DWORD> GetGameProcessId(CString ProcessName)
 {
 	vector<DWORD> vProcessID;
 	//快照缓冲区 读取全部进程到快照缓冲区中

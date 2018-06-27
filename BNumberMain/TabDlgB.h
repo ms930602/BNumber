@@ -33,4 +33,5 @@ public:
 	afx_msg void OnBnClickedBtn2save();
 	afx_msg void OnBnClickedBtn2refresh();
 	afx_msg void OnBnClickedBtn2Flook();
+	afx_msg void OnBnClickedBtnflook2();
 };

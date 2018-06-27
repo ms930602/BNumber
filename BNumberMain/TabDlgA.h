@@ -27,4 +27,5 @@ private:
 public:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnPaint();
+	afx_msg void OnBnClickedBtna1();
 };

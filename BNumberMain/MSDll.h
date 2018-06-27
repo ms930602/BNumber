@@ -4,7 +4,7 @@ using namespace std;
 
 BOOL InJectDll(DWORD processID, CString DllName);
 
-vector<DWORD> GetNameProcessId(CString ProcessName);
+vector<DWORD> GetGameProcessId(CString ProcessName);
 
 //开启或关闭权限
 bool EnablePrivilege(WCHAR PrivilegeName[], BOOL IsEnable);

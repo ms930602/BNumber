@@ -109,7 +109,7 @@ BOOL CBNumberMainDlg::OnInitDialog()
 
 	// TODO: 在此添加额外的初始化代码
 	m_tab.InsertItem(0, _T("控制台"));
-	m_tab.InsertItem(1, _T("账号信息"));
+	m_tab.InsertItem(1, _T("基础信息"));
 	m_pageA.Create(IDD_DIALOG1, &m_tab);
 	m_pageB.Create(IDD_DIALOG2, &m_tab);
 	//设定在Tab内显示的范围  

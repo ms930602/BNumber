@@ -146,6 +146,7 @@ BEGIN_MESSAGE_MAP(CTabDlgB, CDialogEx)
 	ON_BN_CLICKED(IDC_BTN_2_save, &CTabDlgB::OnBnClickedBtn2save)
 	ON_BN_CLICKED(IDC_BTN_2_refresh, &CTabDlgB::OnBnClickedBtn2refresh)
 	ON_BN_CLICKED(IDC_BTN_2_FLook, &CTabDlgB::OnBnClickedBtn2Flook)
+	ON_BN_CLICKED(IDC_BTN_fLook2, &CTabDlgB::OnBnClickedBtnflook2)
 END_MESSAGE_MAP()
 
 
@@ -255,6 +256,30 @@ void CTabDlgB::OnBnClickedBtn2Flook()
 				CString	strPath = MyGetFilePathName(_T("游戏路径.ini"));
 				WritePrivateProfileString(_T("账号"), _T("账号文件"), CStrScript, strPath);
 				GetDlgItem(IDC_EDIT_zhPath)->SetWindowText(CStrScript);
+				this->initLoginInfo();
+			}
+		}
+	}
+	catch (CFileException* e)
+	{
+		e->Delete();
+	}
+}
+
+
+void CTabDlgB::OnBnClickedBtnflook2()
+{
+	try {
+		TCHAR szFilter[] = _T("游戏执行文件(Launch.exe)|Launch.exe||");
+		CFileDialog dlg(TRUE, NULL, NULL, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, szFilter);
+		if (dlg.DoModal() == IDOK)
+		{
+			CString CStrScript = dlg.GetPathName();
+			if (!CStrScript.IsEmpty())
+			{
+				CString	strPath = MyGetFilePathName(_T("游戏路径.ini"));
+				WritePrivateProfileString(_T("路径"), _T("游戏路径"), CStrScript, strPath);
+				GetDlgItem(IDC_EDIT_GamePath)->SetWindowText(CStrScript);
 				this->initLoginInfo();
 			}
 		}

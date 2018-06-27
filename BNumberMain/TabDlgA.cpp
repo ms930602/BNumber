@@ -31,6 +31,7 @@ void CTabDlgA::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CTabDlgA, CDialogEx)
 	ON_WM_TIMER()
 	ON_WM_PAINT()
+	ON_BN_CLICKED(IDC_BTN_a1, &CTabDlgA::OnBnClickedBtna1)
 END_MESSAGE_MAP()
 
 
@@ -73,8 +74,8 @@ void CTabDlgA::OnTimer(UINT_PTR nIDEvent)
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
 	switch (nIDEvent)
 	{
-	case	1: {//该定时器是控制如果窗口不存在了就删除
-		auto vGamePID = GetNameProcessId(_T("Channel_18农残.exe"));
+	case	1: {//该定时器是控制如果窗口不存在了就删除 Channel_18农残.exe
+		auto vGamePID = GetGameProcessId(_T("Game.exe"));
 		if (vGamePID.size() > 0)
 		{
 			INT i = 0;
@@ -114,4 +115,21 @@ void CTabDlgA::OnPaint()
 	//CRect   rect;
 	//GetClientRect(rect);
 	//dc.FillSolidRect(rect, RGB(255, 255, 255));
+}
+
+
+void CTabDlgA::OnBnClickedBtna1()
+{
+	auto GamePID = GetGameProcessId("Game.exe");
+	for (auto PID : GamePID)
+	{
+		CString strPID ;
+		strPID.Format("%d", PID);
+		LVFINDINFO info;
+		info.flags = LVFI_PARTIAL | LVFI_STRING;
+		info.psz = strPID;//字符串名	
+		int nIndex = m_a_list.FindItem(&info, -1);
+		if (nIndex == -1)	//查找指定项
+			m_a_list.InsertItem(0, strPID);
+	}
 }
