@@ -110,10 +110,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="MsEntity.h" />
+    <ClInclude Include="MSENTITY.H" />
     <ClInclude Include="MsIndex.h" />
     <ClInclude Include="MsBase.h" />
     <ClInclude Include="MsItem.h" />
+    <ClInclude Include="MsMonster.h" />
     <ClInclude Include="MsNpc.h" />
     <ClInclude Include="MsPet.h" />
     <ClInclude Include="MsRole.h" />
@@ -122,8 +123,8 @@
     <ClInclude Include="MsTeam.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MsEntity.cpp" />
     <ClCompile Include="MsItem.cpp" />
+    <ClCompile Include="MsMonster.cpp" />
     <ClCompile Include="MsNpc.cpp" />
     <ClCompile Include="MsPet.cpp" />
     <ClCompile Include="MsRole.cpp" />

@@ -1,10 +1,10 @@
 #include "stdafx.h"
-#include "BNCtrl.h"
+#include "Self.h"
 #include "UI.h"
 
 extern UI* pUI;
 
-CBNCtrl::CBNCtrl()
+CSelf::CSelf()
 {
 	pUI = nullptr;//UI指针
 	hDll = nullptr;//模块句柄
@@ -22,7 +22,7 @@ CBNCtrl::CBNCtrl()
 	bLogin = false;
 }
 
-CBNCtrl::~CBNCtrl()
+CSelf::~CSelf()
 {
 	if (hMapFile)
 	{
@@ -30,7 +30,7 @@ CBNCtrl::~CBNCtrl()
 	}
 }
 
-void CBNCtrl::EndThread()
+void CSelf::EndThread()
 {
 	bProtectRun = false;
 	bRun = false;
@@ -57,6 +57,32 @@ void CBNCtrl::EndThread()
 	}
 }
 
+void CSelf::CreatUI()
+{
+}
+
+void CSelf::CreatKillMonster()
+{
+}
+
+void CSelf::CreatLogin(int nNUM)//创建登录线程
+{
+	HANDLE hlg = (HANDLE)_beginthreadex(NULL, 0, &Login_ThreadFunc, (void*)nNUM, 0, NULL);
+	::CloseHandle(hlg);
+}
+
+void CSelf::CreatProtect()
+{
+}
+
+void CSelf::CreatTask(int nType)
+{
+}
+
+void CSelf::CreatAgainLogin()
+{
+}
+
 UINT __stdcall UI_ThradFunc(LPVOID p)
 {
 
@@ -65,24 +91,4 @@ UINT __stdcall UI_ThradFunc(LPVOID p)
 	pUI->DoModal(); //创建一个模态对话框
 
 	return 0;
-}
-
-void CBNCtrl::CreateUI()
-{
-}
-
-void CBNCtrl::CreateKillMonster()
-{
-}
-
-void CBNCtrl::CreateLogin()
-{
-}
-
-void CBNCtrl::CreateProtect()
-{
-}
-
-void CBNCtrl::CreateTask()
-{
 }

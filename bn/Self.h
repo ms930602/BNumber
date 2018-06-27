@@ -1,11 +1,13 @@
 #pragma once
+#include "Function.h"
 #include <atomic>
+#include "Message.h"
 using namespace std;
-class CBNCtrl
+class CSelf
 {
 public:
-	CBNCtrl();
-	~CBNCtrl();
+	CSelf();
+	~CSelf();
 
 public:
 	void EndThread();
@@ -16,11 +18,12 @@ public:
 	friend UINT __stdcall Protecd_ThreadFunc(void* p);//保护线程函数
 	friend UINT __stdcall Task_ThreadFunc(void* p);//脚本任务线程函数
 public:
-	void CreateUI();
-	void CreateKillMonster();
-	void CreateLogin();
-	void CreateProtect();
-	void CreateTask();
+	void CreatUI();//创建UI
+	void CreatKillMonster();//创建杀怪线程
+	void CreatLogin(int nNUM);//创建登录线程
+	void CreatProtect();//创建保护线程
+	void CreatTask(int nType);//创建Task线程
+	void CreatAgainLogin();//创建切换角色的线程
 public:
 	HMODULE hDll;//句柄
 public:
