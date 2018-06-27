@@ -1,5 +1,7 @@
 #pragma once
+#include "Function.h"
 #include <atomic>
+#include "Message.h"
 using namespace std;
 class CSelf
 {
@@ -21,6 +23,7 @@ public:
 	void CreatLogin(int nNUM);//创建登录线程
 	void CreatProtect();//创建保护线程
 	void CreatTask(int nType);//创建Task线程
+	void CreatAgainLogin();//创建切换角色的线程
 public:
 	HMODULE hDll;//句柄
 public:

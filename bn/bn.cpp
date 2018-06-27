@@ -37,14 +37,17 @@ BOOL CbnApp::InitInstance()
 {
 	CWinApp::InitInstance();
 
-	self = new CSelf;//³õÊ¼»¯½Å±¾
+	self = new CSelf;
 	self->hDll = theApp.m_hInstance;
-	self->CreateLogin(1);
+	self->CreatLogin(1);
 
 	return TRUE;
 }
 
 int CbnApp::ExitInstance()
 {
+
+	delete self;
+
 	return 0;
 }

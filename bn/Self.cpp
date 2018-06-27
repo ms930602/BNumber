@@ -3,7 +3,6 @@
 #include "UI.h"
 
 extern UI* pUI;
-extern CSelf* self;
 
 CSelf::CSelf()
 {
@@ -58,7 +57,29 @@ void CSelf::EndThread()
 	}
 }
 
-void CSelf::CreatLogin(int nNUM)
+void CSelf::CreatUI()
+{
+}
+
+void CSelf::CreatKillMonster()
+{
+}
+
+void CSelf::CreatLogin(int nNUM)//创建登录线程
+{
+	HANDLE hlg = (HANDLE)_beginthreadex(NULL, 0, &Login_ThreadFunc, (void*)nNUM, 0, NULL);
+	::CloseHandle(hlg);
+}
+
+void CSelf::CreatProtect()
+{
+}
+
+void CSelf::CreatTask(int nType)
+{
+}
+
+void CSelf::CreatAgainLogin()
 {
 }
 

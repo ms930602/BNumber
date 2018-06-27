@@ -33,6 +33,15 @@
     <ClCompile Include="Self.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Login.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FileSystem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="User.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bn.h">
@@ -57,6 +66,21 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Self.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SocketStruct.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Message.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Function.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="User.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FileSystem.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

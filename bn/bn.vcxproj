@@ -92,6 +92,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\\BNumber\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -186,6 +187,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bn.cpp" />
+    <ClCompile Include="FileSystem.cpp" />
+    <ClCompile Include="Login.cpp" />
     <ClCompile Include="Self.cpp" />
     <ClCompile Include="Dlg1.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -195,16 +198,22 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="UI.cpp" />
+    <ClCompile Include="User.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bn.h" />
+    <ClInclude Include="FileSystem.h" />
+    <ClInclude Include="Function.h" />
+    <ClInclude Include="Message.h" />
     <ClInclude Include="Self.h" />
     <ClInclude Include="Dlg1.h" />
     <ClInclude Include="Login.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SocketStruct.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="UI.h" />
+    <ClInclude Include="User.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bn.def" />
