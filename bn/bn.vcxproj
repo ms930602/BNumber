@@ -202,8 +202,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bn.h" />
+    <ClInclude Include="Controls.h" />
     <ClInclude Include="FileSystem.h" />
     <ClInclude Include="Function.h" />
+    <ClInclude Include="GameFrame.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="Self.h" />
     <ClInclude Include="Dlg1.h" />

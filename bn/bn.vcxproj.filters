@@ -83,6 +83,12 @@
     <ClInclude Include="FileSystem.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="GameFrame.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="bn.def">

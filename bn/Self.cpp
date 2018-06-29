@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "Self.h"
 #include "UI.h"
+#include "Function.h"
+#include <atomic>
+#include "Message.h"
 
 extern UI* pUI;
 
