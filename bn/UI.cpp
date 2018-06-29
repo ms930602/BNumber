@@ -6,7 +6,6 @@
 #include "UI.h"
 #include "afxdialogex.h"
 
-
 // UI ¶Ô»°¿ò
 
 IMPLEMENT_DYNAMIC(UI, CDialogEx)

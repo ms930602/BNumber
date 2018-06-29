@@ -22,7 +22,7 @@ protected:
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
 //怪物信息结构
-struct TAsmMonster
+struct TMsMonster
 {
 
 	DWORD dwTree;    //怪物二叉树节点
@@ -37,7 +37,7 @@ struct TAsmMonster
 	int   nLevel;    //怪物的属性属性偏移+6C等级
 	int   nType;//这个是怪物归属，区分，-1绿怪，角色对象里的一个值-红怪，不是我们角色对象的里的值-白怪
 	int   nNpcType;//这个区分npc的类型
-	TAsmMonster()
+	TMsMonster()
 	{
 		dwTree = 0;
 		nMonsterId = -1;
@@ -54,7 +54,7 @@ struct TAsmMonster
 	};
 };
 
-typedef 	vector<TAsmMonster> VAsmMonster;
+typedef 	vector<TMsMonster> VMsMonster;
 
 class CMsMonster :
 	public CMsEnvTree
@@ -63,11 +63,11 @@ public:
 	CMsMonster() {};
 	~CMsMonster() {};
 public:
-	VAsmMonster GetMonsterData();
+	VMsMonster GetMonsterData();
 	int OpenNpcDlg(int nID);
 private:
-	void MonsterTraverse(TMsTree* Tree, VAsmMonster& vm_Monster, DWORD* pCount);//先序遍历二叉树
-	void GetMonsterInfo(TMsTree* Tree, VAsmMonster& vm_Monster);//取怪物的属性信息
+	void MonsterTraverse(TMsTree* Tree, VMsMonster& vm_Monster, DWORD* pCount);//先序遍历二叉树
+	void GetMonsterInfo(TMsTree* Tree, VMsMonster& vm_Monster);//取怪物的属性信息
 	int  GetMonsterType(DWORD MonsterOb, DWORD RoleOb);//区分怪物 宠物 NPC
 };
 
