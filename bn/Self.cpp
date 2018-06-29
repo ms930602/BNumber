@@ -82,8 +82,10 @@ void CSelf::CreatTask(int nType)
 {
 }
 
-void CSelf::CreatAgainLogin()
+void CSelf::CreatAgainLogin()//创建切换角色的线程
 {
+	bLogin = true;
+	hAgainLoginThread = (HANDLE)_beginthreadex(NULL, 0, &Login_AgainFunc, NULL, 0, NULL);
 }
 
 UINT __stdcall UI_ThradFunc(LPVOID p)

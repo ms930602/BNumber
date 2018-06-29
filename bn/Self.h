@@ -1,8 +1,18 @@
 #pragma once
+#include "UI.h"
 #include "Function.h"
 #include <atomic>
 #include "Message.h"
 using namespace std;
+
+struct TSelfMapFile
+{
+	char szName[50];
+	char szDiTu[50];
+	char szZhuRu[50];
+	int  nState;
+};
+
 class CSelf
 {
 public:
@@ -17,6 +27,7 @@ public:
 	friend UINT __stdcall Login_ThreadFunc(void* p);//登录线程函数
 	friend UINT __stdcall Protecd_ThreadFunc(void* p);//保护线程函数
 	friend UINT __stdcall Task_ThreadFunc(void* p);//脚本任务线程函数
+	friend UINT __stdcall Login_AgainFunc(void* p);//登录线程函数
 public:
 	void CreatUI();//创建UI
 	void CreatKillMonster();//创建杀怪线程
@@ -27,9 +38,11 @@ public:
 public:
 	HMODULE hDll;//句柄
 public:
+	HANDLE hAgainLoginThread;
 	HANDLE hKillThread;
 	HANDLE hUIThread;
 	HANDLE hProtectThread;
+	HANDLE hTryThread;
 	HANDLE hTaskThread;
 	HANDLE hMapFile;
 public:

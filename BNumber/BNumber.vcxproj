@@ -110,7 +110,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="MSENTITY.H" />
     <ClInclude Include="MsIndex.h" />
     <ClInclude Include="MsBase.h" />
     <ClInclude Include="MsItem.h" />
