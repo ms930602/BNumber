@@ -1,6 +1,6 @@
 #pragma once
 #include "MsIndex.h"
-
+#include <vector>
 using namespace std;
 
 struct TMsPetSkill //宠物技能
@@ -24,7 +24,7 @@ struct TMsPetSkill //宠物技能
 		szName = "";
 		nLevel = -1;
 		nCoolTimeID = -1;
-	}
+	};
 };
 
 typedef vector<TMsPetSkill> VMsPetSkill;

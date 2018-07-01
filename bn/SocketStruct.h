@@ -39,7 +39,7 @@
 struct SocketBind
 {
 	CONNID dwConnID;//а╛╫сID
-	DWORD dwGmae;
+	DWORD dwGameID;
 	char Account[50];//сно╥ук╨е
 };
 

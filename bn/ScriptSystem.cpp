@@ -12,6 +12,14 @@ void CScriptSystem::LUA_ScriptSystemInitial()
 	LuaObject objGlobal = (*pState)->GetGlobals();
 
 	//注册全局函数
-	objGlobal.Register("Script", *m_pSelfLua,
-		&CSelfLua::LUA_Script);
+
+	objGlobal.Register("IsWindowShow", *m_pSelfLua,
+		&CSelfLua::LUA_IsWindowShow);//Get_XParam_INT
+
+	//-------------------------------------------------------------------------------------
+	//注册DataBase函数对象//////////////////////////////////////////////////////////////////////
+	LuaObject metatable_DataBase = objGlobal.CreateTable("MetaTableDataBase");
+	metatable_DataBase.SetObject("__index", metatable_DataBase);
+
+	metatable_DataBase.RegisterObjectFunctor("GetSceneID", &CSelfLua::LUA_GetSceneId);//获取场景id
 }

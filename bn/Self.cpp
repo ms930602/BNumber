@@ -1,9 +1,6 @@
 #include "stdafx.h"
 #include "Self.h"
-#include "UI.h"
-#include "Function.h"
-#include <atomic>
-#include "Message.h"
+#include "Login.h"
 
 extern UI* pUI;
 
@@ -62,6 +59,8 @@ void CSelf::EndThread()
 
 void CSelf::CreatUI()
 {
+	bUiThread = true;
+	hUIThread = (HANDLE)_beginthreadex(NULL, 0, &UI_ThreadFunc, this, 0, NULL);
 }
 
 void CSelf::CreatKillMonster()
@@ -88,7 +87,7 @@ void CSelf::CreatAgainLogin()//创建切换角色的线程
 	hAgainLoginThread = (HANDLE)_beginthreadex(NULL, 0, &Login_AgainFunc, NULL, 0, NULL);
 }
 
-UINT __stdcall UI_ThradFunc(LPVOID p)
+UINT __stdcall UI_ThreadFunc(LPVOID p)
 {
 
 	//采用成员变量创建一个模态对话框

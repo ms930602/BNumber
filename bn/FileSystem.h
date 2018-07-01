@@ -175,7 +175,7 @@ void DPrint(IN  const TF Format, IN const TS... list)
 	}
 	catch (...)
 	{
-		::OutputDebugStringA("[WG][dll]"__FUNCTION__);
+		::OutputDebugStringA(__FUNCTION__);
 	}
 }
 

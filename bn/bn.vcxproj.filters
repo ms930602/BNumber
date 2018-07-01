@@ -48,10 +48,13 @@
     <ClCompile Include="MeProject.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Message.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="ScriptSystem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Message.cpp">
+    <ClCompile Include="SelfLua.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -104,6 +107,9 @@
     <ClInclude Include="SelfLua.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="SelfKill.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="bn.def">
@@ -112,6 +118,7 @@
     <None Include="res\bn.rc2">
       <Filter>资源文件</Filter>
     </None>
+    <None Include="System.lua" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="bn.rc">

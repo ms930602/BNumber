@@ -30,53 +30,6 @@ CUser* pUser;
 #define DEFAULT_ADDRESS	_T("127.0.0.1")
 #define DEFAULT_PORT	_T("5555")
 
-bool LoginFunction()
-{
-	while (true)
-	{
-		CString CStitle = pMsg->GetWindowTitle(pMsg->GamehWnd);
-		if (CStitle == _T("《新天龙八部》"))
-		{
-
-			//dbgPrint("%x", pAsmRole->getobject());
-
-			if (pMsg->msg_getnumber("if IsWindowShow(\"MiniMap\") then g_GetValue = 1 else g_GetValue = 0 end"))
-				return TRUE;
-			Sleep(1000);
-		}
-	}
-
-	return FALSE;
-}
-
-enum ELogin
-{
-	注入模块 = 1,
-	卸载模块 = 2,
-	切换角色 = 3
-};
-//这里可能要做个通信函数，用于dll的卸载，任务的触发等，与控制台交互
-
-UINT __stdcall Login_threadFunc(void* p)//登录线程函数
-{
-
-	int nType = (int)p;
-
-	if (nType == 注入模块)
-	{
-		Initial();
-		dbgPrint("注入模块");
-		return 0;
-	}
-
-	dbgPrint("卸载模块");
-	ExitLogin();
-	UnDetoursHook();
-	UnAnserHook();
-	::FreeLibraryAndExitThread(pMe->hDll, 1);
-
-	return 1;
-}
 
 void Initial()
 {
@@ -110,6 +63,103 @@ void Initial()
 	pFileSystem->MyGetFilePath(pMe->hDll);//获取文件路径初始化
 	pMsg->Init();
 
+	//StartDetoursHook();//互斥体
+	//StartAnserHook();//互斥体
+
+	pHPInit->Login_Thread();
+	//////////////////////////////////////////////////////////////////////////
+	LoginFunction();//开始进行登录监控
+	Sleep(2000);//暂时不延迟不行
+	pFileSystem->FileInitial();//初始化全部文件，包括配置文件	
+	_tstring luastr = pMsg->msg_getstring("MyLoadFile", "MyLoadFile = mystartloadfile");
+	if (luastr != "lua库已经存在")
+	{
+		exit(0);
+	}
+	dbgPrint(luastr.c_str());
+	pMe->CreatUI();//创建窗体
+	dbgPrint(_T("UI已经创建"));
+	//UnHookMutexA();//互斥体
+	auto ARoleInfo = pAsmRole->GetRoleInfo();
+	sprintf(tMeMapFile.szName, ARoleInfo.szName);
+	sprintf(tMeMapFile.szDiTu, role_curmap().szName);
+	sprintf(tMeMapFile.szZhuRu, "已注入");
+	tMeMapFile.nState = ARoleInfo.nState;
+	SendToCtrl(tMeMapFile);
+
+	while (1)
+	{
+		pHPInit->MyReconnection();
+		Sleep(3000);
+	}
+}
+
+void ExitLogin()//卸载dll
+{
+	pMe->bLogin = false;
+	pMe->bKillThread = false;
+	pMe->bRun = false;//寻路状态
+	pMe->bTaskThread = false;//任务线程标志
+	pMe->bProtectRun = false;
+	while (pMe->atomic_int_work_thread > 0) Sleep(50);//等待所有线程全部自然退出
+													  //while (pMe->atomic_int_protect_thread > 0) Sleep(50);//等待所有线程全部自然退出
+
+	if (pMe->hKillThread)//杀怪线程
+	{
+		::WaitForSingleObject(pMe->hKillThread, INFINITE);
+		::CloseHandle(pMe->hKillThread);
+	}
+
+	if (pMe->hAgainLoginThread)//杀怪线程
+	{
+		::WaitForSingleObject(pMe->hAgainLoginThread, INFINITE);
+		::CloseHandle(pMe->hAgainLoginThread);
+	}
+
+	if (pMe->hProtectThread)//保护线程
+	{
+		::WaitForSingleObject(pMe->hProtectThread, INFINITE);
+		::CloseHandle(pMe->hProtectThread);
+	}
+
+	if (pMe->hTryThread)//保护线程
+	{
+		::WaitForSingleObject(pMe->hTryThread, INFINITE);
+		::CloseHandle(pMe->hTryThread);
+	}
+
+	if (pMe->hTaskThread)//任务线程
+	{
+		::WaitForSingleObject(pMe->hTaskThread, INFINITE);
+		::CloseHandle(pMe->hTaskThread);
+	}
+
+	PostMessage(pUI->m_hWnd, WM_CLOSE, NULL, NULL);//向对话框投递销毁窗体的消息
+
+	if (pMe->hUIThread)//UI线程
+	{
+		::WaitForSingleObject(pMe->hUIThread, INFINITE);
+		::CloseHandle(pMe->hUIThread);
+		//dbgPrint(_T("UI线程安全退出"));
+	}
+
+	pMsg->Release();
+	delete pUI;
+	delete pFileSystem;
+	//delete pluahelp;
+	delete pCriticalSection;
+	delete pCriticalSection2;
+	delete pAsmRole;
+	delete pAsmTeam;
+	delete pAsmItem;
+	delete pAsmSkill;
+	delete pAsmPet;
+	delete pAsmMonster;
+	delete pAsmPlayer;
+	delete pAsmCollect;
+	delete pUser;
+	delete pScriptSystem;
+	delete pMsg;
 }
 
 UINT __stdcall Login_AgainFunc(void* p)//登录线程函数
@@ -148,6 +198,53 @@ UINT __stdcall Login_AgainFunc(void* p)//登录线程函数
 	return 0;
 }
 
+
+bool LoginFunction()
+{
+	while (true)
+	{
+		CString CStitle = pMsg->GetWindowTitle(pMsg->GamehWnd);
+		if (CStitle == _T("《新天龙八部》"))
+		{
+
+			//dbgPrint("%x", pAsmRole->getobject());
+
+			if (pMsg->msg_getnumber("if IsWindowShow(\"MiniMap\") then g_GetValue = 1 else g_GetValue = 0 end"))
+				return TRUE;
+			Sleep(1000);
+		}
+	}
+
+	return FALSE;
+}
+
+enum ELogin
+{
+	注入模块 = 1,
+	卸载模块 = 2,
+	切换角色 = 3
+};
+//这里可能要做个通信函数，用于dll的卸载，任务的触发等，与控制台交互
+UINT __stdcall Login_ThreadFunc(void * p)//登录线程函数
+{
+	int nType = (int)p;
+
+	if (nType == 注入模块)
+	{
+		Initial();
+		dbgPrint("注入模块");
+		return 0;
+	}
+
+	dbgPrint("卸载模块");
+	ExitLogin();
+	//UnDetoursHook();//互斥体
+	//UnAnserHook();
+	::FreeLibraryAndExitThread(pMe->hDll, 1);
+
+	return 1;
+}
+
 CHPInit::~CHPInit()
 {
 }
@@ -177,10 +274,17 @@ void CHPInit::MySendPID()
 
 void CHPInit::MySendReconnection()
 {
+	SocketBind _SocketBind = { 0 };
+	_SocketBind.dwGameID = GetCurrentProcessId();
+	strcpy(_SocketBind.Account, __SocketLoginInfo.GameName);
+	MySendPackets(SOCKET_LINK_重连, sizeof(_SocketBind), (char*)&_SocketBind);
 }
 
-void CHPInit::MySendGameInfo(const char * message)
+void CHPInit::MySendGameInfo(const char * message)//游戏状态，进度
 {
+	SocketGameInfo _SocketGameInfo = { 0 };//信息
+	strcpy(_SocketGameInfo._Message, message);
+	MySendPackets(SOCKET_GAME_INFO, sizeof(_SocketGameInfo), (char*)&_SocketGameInfo);
 }
 
 void CHPInit::MySendValidate(SocketValidate _Validate)
@@ -236,6 +340,22 @@ void CHPInit::MySendPackets(DWORD dwpacketID, int body_len, char * Socketbody)
 
 void CHPInit::MyReconnection()
 {
+	CString strAddress = DEFAULT_ADDRESS;
+	CString strPort = DEFAULT_PORT;
+	USHORT usPort = (USHORT)_ttoi(strPort);
+
+	if (m_Client->GetState() == SS_STOPPED)
+	{
+		m_pkgInfo.Reset();
+		if (m_Client->Start(strAddress, usPort, 1))
+		{
+			MySendReconnection();//发送重连中控
+		}
+	}
+	else
+	{
+		SendRoleInfo();
+	}
 }
 
 UINT CHPInit::SendRoleInfo()
@@ -245,6 +365,7 @@ UINT CHPInit::SendRoleInfo()
 
 UINT CHPInit::Login_Thread()
 {
+	MySendGameInfo("等待进入选择大区界面");
 	return 0;
 }
 

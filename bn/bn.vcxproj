@@ -195,6 +195,7 @@
     <ClCompile Include="ScriptSystem.cpp" />
     <ClCompile Include="Self.cpp" />
     <ClCompile Include="Dlg1.cpp" />
+    <ClCompile Include="SelfLua.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -215,6 +216,7 @@
     <ClInclude Include="Dlg1.h" />
     <ClInclude Include="Login.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SelfKill.h" />
     <ClInclude Include="SelfLua.h" />
     <ClInclude Include="SocketStruct.h" />
     <ClInclude Include="stdafx.h" />
@@ -225,6 +227,7 @@
   <ItemGroup>
     <None Include="bn.def" />
     <None Include="res\bn.rc2" />
+    <None Include="System.lua" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="bn.rc" />

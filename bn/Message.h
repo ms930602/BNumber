@@ -35,7 +35,7 @@ public:
 		CString strPAth2;
 		strPAth2.Format("\\Client%x.cfg", GetCurrentProcessId());
 		strPAth += strPAth2;
-		//dbgPrint(lpBuffer);
+		dbgPrint(lpBuffer);
 		LUAInitialize(strPAth);
 	};
 	void Release() {//卸载子类化
@@ -47,7 +47,7 @@ public:
 public:
 	void msg_dostring(const char* _Format, ...);//执行dostring
 	int msg_getnumber(char* _Format, ...);//获取数字
-										  //1.0 str_arg ：要获取的lua字符串变量    2.0 _Format ：要执行的全部字符串命令
+	//1.0 str_arg ：要获取的lua字符串变量    2.0 _Format ：要执行的全部字符串命令
 	_tstring msg_getstring(const char* str_arg, char* _Format, ...);//获取字符串
 private:
 	static LRESULT CALLBACK our_wndproc(HWND hWnd, UINT wMsg, WPARAM wParam, LPARAM lParam);
@@ -61,7 +61,7 @@ private:
 	int InitLuaFun();//获取lua库函数
 	CCriticalSection m_State;
 public:
-	CString GetWindowTitle(HWND hwnd);
+	CString GetWindowTitle(HWND hwnd);//获取标题左边14字节的信息
 	const char* telua_tostring(int n);
 private:
 	/************************************************************************/
@@ -88,9 +88,9 @@ private:
 	Gplua_call	  GpLua_Call = nullptr;
 	Glua_type   Gplua_type = nullptr;
 	int lua_state = 0;//lua状态机指针
-					  /************************************************************************/
-					  /* lua取值的函数                                                                     */
-					  /************************************************************************/
+	/************************************************************************/
+	/* lua取值的函数                                                                     */
+	/************************************************************************/
 	bool telua_getnumber(const char* buf, PVOID  out);
 	bool telua_getstring(const char* buf, const char* want_get_string);
 

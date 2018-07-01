@@ -1,6 +1,6 @@
 #pragma once
 #include <Windows.h>
-
+#include <vector>
 struct TMsTree {
 	TMsTree * left;
 	TMsTree * root;

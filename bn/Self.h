@@ -1,9 +1,9 @@
 #pragma once
+#include "Resource.h"
 #include "UI.h"
 #include "Function.h"
 #include <atomic>
 #include "Message.h"
-using namespace std;
 
 struct TSelfMapFile
 {
@@ -22,7 +22,7 @@ public:
 public:
 	void EndThread();
 public:
-	friend UINT __stdcall UI_ThradFunc(LPVOID p);//UI 线程函数
+	friend UINT __stdcall UI_ThreadFunc(LPVOID p);//UI 线程函数
 	friend UINT __stdcall KillMonster_ThreadFunc(LPVOID p);//砍怪线程函数
 	friend UINT __stdcall Login_ThreadFunc(void* p);//登录线程函数
 	friend UINT __stdcall Protecd_ThreadFunc(void* p);//保护线程函数

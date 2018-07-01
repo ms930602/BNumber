@@ -8,7 +8,7 @@ public:
 	~CScriptSystem()
 	{
 		delete pState;
-		delete MeLua;
+		delete m_pSelfLua;
 	};
 public:
 	void LUA_ScriptSystemInitial();

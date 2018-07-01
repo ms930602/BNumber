@@ -112,7 +112,7 @@ public:
 	TMsTeam  FUN_GetAllTeamMember();//获取所有队员在不在身边
 	void FUN_RunToLeader(TMsPlayer leader);//移动到队长身边
 	void FUN_AcceptTeam();//是否自动接收组队邀请
-	TAsmMonster FUN_GetLeaderMonster(int nLeaderMonster);//获取队长打的怪物
+	TMsMonster FUN_GetLeaderMonster(int nLeaderMonster);//获取队长打的怪物
 	void FUN_AssistAttack();//协助队友攻击
 	void FUN_UseEMeiBloodSkill(int nPlayerId);//使用峨嵋加血技能
 	void FUN_EMeiTeamerBlood();//给队友加血
